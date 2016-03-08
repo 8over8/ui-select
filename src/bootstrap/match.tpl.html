@@ -1,16 +1,12 @@
-<div class="ui-select-match" ng-hide="$select.open" ng-disabled="$select.disabled" ng-class="{'btn-default-focus':$select.focus}">
-  <span tabindex="-1"
-      class="btn btn-default form-control ui-select-toggle"
-      aria-label="{{ $select.baseTitle }} activate"
-      ng-disabled="$select.disabled" 
-      ng-click="$select.activate()"
-      style="outline: 0;">
-    <span ng-show="$select.isEmpty()" class="ui-select-placeholder text-muted">{{$select.placeholder}}</span>
-    <span ng-hide="$select.isEmpty()" class="ui-select-match-text pull-left" ng-class="{'ui-select-allow-clear': $select.allowClear && !$select.isEmpty()}" ng-transclude=""></span>
-    <i class="caret pull-right" ng-click="$select.toggle($event)"></i>
-    <a ng-show="$select.allowClear && !$select.isEmpty()" aria-label="{{ $select.baseTitle }} clear" style="margin-right: 10px" 
-      ng-click="$select.clear($event)" class="btn btn-xs btn-link pull-right">
-      <i class="glyphicon glyphicon-remove" aria-hidden="true"></i>
-    </a>
-  </span>
+<div class="btn-group ui-select-match btn-block" ng-hide="$select.open" ng-disabled="$select.disabled" ng-class="{'btn-default-focus':$select.focus}">
+    <button type="button" data-ng-click="loadMoreDetails($select.selected)" type="button" tabindex="-1" class="btn btn-default">
+        <span tabindex="-1" ng-show="$select.isEmpty()" class="text-muted">{{$select.placeholder}}</span>
+        <span tabindex="-1" ng-hide="$select.isEmpty()" ng-transclude=""></span>
+    </button> 
+    <button type="button" class="btn btn-default" ng-if="$select.allowClear && !$select.isempty()" ng-click="$select.select(undefined)" tabindex="-1">
+        <span tabindex="-1" class="glyphicon glyphicon-remove ui-select-toggle"></span>
+    </button> 
+    <button type="button" class="search" tabindex="-1" ng-click="$select.activate()">
+        <i tabindex="-1" class="icon-search"></i>
+    </button>
 </div>

@@ -14,7 +14,8 @@
            ng-model="$select.search"
            role="combobox"
            aria-label="{{ $select.baseTitle }}"
-           ondrop="return false;">
+           ondrop="return false;"
+           ng-blur="$select.close();$select.focus =false;">
   </div>
   <div class="ui-select-choices"></div>
 </div>
