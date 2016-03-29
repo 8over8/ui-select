@@ -516,7 +516,9 @@ uis.controller('uiSelectCtrl',
                   break;
               case KEY.ENTER:
                   if (ctrl.open && (ctrl.tagging.isActivated || ctrl.activeIndex >= 0)) {
-                      ctrl.select(ctrl.items[ctrl.activeIndex], true); // Make sure at least one dropdown item is highlighted before adding if not in tagging mode
+					  // Make sure at least one dropdown item is highlighted before adding if not in tagging mode.
+					  // We want to skip the 'focusser' here so that the input does not regain focus on close.
+                      ctrl.select(ctrl.items[ctrl.activeIndex], true);
                   } else {
                       ctrl.activate(false, true); //In case its the search input in 'multiple' mode
                   }

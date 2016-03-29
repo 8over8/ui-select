@@ -1,7 +1,7 @@
 /*!
  * ui-select
  * http://github.com/angular-ui/ui-select
- * Version: 0.14.10 - 2016-03-29T14:35:22.532Z
+ * Version: 0.14.10 - 2016-03-29T14:52:44.212Z
  * License: MIT
  */
 
@@ -797,7 +797,9 @@ uis.controller('uiSelectCtrl',
                   break;
               case KEY.ENTER:
                   if (ctrl.open && (ctrl.tagging.isActivated || ctrl.activeIndex >= 0)) {
-                      ctrl.select(ctrl.items[ctrl.activeIndex], true); // Make sure at least one dropdown item is highlighted before adding if not in tagging mode
+					  // Make sure at least one dropdown item is highlighted before adding if not in tagging mode.
+					  // We want to skip the 'focusser' here so that the input does not regain focus on close.
+                      ctrl.select(ctrl.items[ctrl.activeIndex], true);
                   } else {
                       ctrl.activate(false, true); //In case its the search input in 'multiple' mode
                   }
@@ -1103,11 +1105,6 @@ uis.directive('uiSelect',
                       }
 
                       if (!contains && !$select.clickTriggeredSelect) {
-                          //Will lose focus only with certain targets
-                          var focusableControls = ['input', 'button', 'textarea', 'select'];
-                          var targetController = angular.element(e.target).controller('uiSelect'); //To check if target is other ui-select
-                          var skipFocusser = targetController && targetController !== $select; //To check if target is other ui-select
-                          if (!skipFocusser) skipFocusser = ~focusableControls.indexOf(e.target.tagName.toLowerCase()); //Check if target is input, button or textarea
                           $select.close(true);
                           scope.$digest();
                       }
