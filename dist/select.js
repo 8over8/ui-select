@@ -1,7 +1,7 @@
 /*!
  * ui-select
  * http://github.com/angular-ui/ui-select
- * Version: 0.14.10 - 2016-03-29T14:21:54.207Z
+ * Version: 0.14.10 - 2016-03-29T14:35:22.532Z
  * License: MIT
  */
 
@@ -691,9 +691,9 @@ uis.controller('uiSelectCtrl',
                   ctrl.focusser.prop('disabled', false);
                   var element = angular.element('.next-ui-select-element');
                   if (element.length > 0 && !skipNext) {
-					  setTimeout(function () {
-						element.focus();
-					  });
+                    setTimeout(function () {
+                      element.focus();
+                    });
                   } else if (!skipFocusser) {
                       ctrl.focusser[0].focus();
                   }
