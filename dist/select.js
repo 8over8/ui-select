@@ -1,7 +1,7 @@
 /*!
  * ui-select
  * http://github.com/angular-ui/ui-select
- * Version: 0.14.10 - 2016-03-08T11:58:04.796Z
+ * Version: 0.14.10 - 2016-03-29T14:21:54.207Z
  * License: MIT
  */
 
@@ -224,7 +224,7 @@ uis.directive('uiSelectChoices',
                       .attr('ng-if', '$select.open'); //Prevent unnecessary watches when dropdown is closed
                   if ($window.document.addEventListener) {  //crude way to exclude IE8, specifically, which also cannot capture events
                       choices.attr('ng-mouseenter', '$select.setActiveItem(' + $select.parserResult.itemName + ')')
-                          .attr('ng-mousedown', '$select.select(' + $select.parserResult.itemName + ',false,$event)');
+                          .attr('ng-click', '$select.select(' + $select.parserResult.itemName + ',false,$event)');
                   }
 
                   var rowsInner = element.querySelectorAll('.ui-select-choices-row-inner');
@@ -232,7 +232,7 @@ uis.directive('uiSelectChoices',
                   rowsInner.attr('uis-transclude-append', ''); //Adding uisTranscludeAppend directive to row element after choices element has ngRepeat
                   if (!$window.document.addEventListener) {  //crude way to target IE8, specifically, which also cannot capture events - so event bindings must be here
                       rowsInner.attr('ng-mouseenter', '$select.setActiveItem(' + $select.parserResult.itemName + ')')
-                          .attr('ng-mousedown', '$select.select(' + $select.parserResult.itemName + ',false,$event)');
+                          .attr('ng-click', '$select.select(' + $select.parserResult.itemName + ',false,$event)');
                   }
 
                   $compile(element, transcludeFn)(scope); //Passing current transcludeFn to be able to append elements correctly from uisTranscludeAppend
@@ -277,6 +277,7 @@ uis.directive('uiSelectChoices',
           }
       };
   }]);
+
 
 /**
  * Contains ui-select "intelligence".
@@ -690,7 +691,9 @@ uis.controller('uiSelectCtrl',
                   ctrl.focusser.prop('disabled', false);
                   var element = angular.element('.next-ui-select-element');
                   if (element.length > 0 && !skipNext) {
-                      element.focus();
+					  setTimeout(function () {
+						element.focus();
+					  });
                   } else if (!skipFocusser) {
                       ctrl.focusser[0].focus();
                   }
@@ -794,7 +797,7 @@ uis.controller('uiSelectCtrl',
                   break;
               case KEY.ENTER:
                   if (ctrl.open && (ctrl.tagging.isActivated || ctrl.activeIndex >= 0)) {
-                      ctrl.select(ctrl.items[ctrl.activeIndex]); // Make sure at least one dropdown item is highlighted before adding if not in tagging mode
+                      ctrl.select(ctrl.items[ctrl.activeIndex], true); // Make sure at least one dropdown item is highlighted before adding if not in tagging mode
                   } else {
                       ctrl.activate(false, true); //In case its the search input in 'multiple' mode
                   }
@@ -1105,7 +1108,7 @@ uis.directive('uiSelect',
                           var targetController = angular.element(e.target).controller('uiSelect'); //To check if target is other ui-select
                           var skipFocusser = targetController && targetController !== $select; //To check if target is other ui-select
                           if (!skipFocusser) skipFocusser = ~focusableControls.indexOf(e.target.tagName.toLowerCase()); //Check if target is input, button or textarea
-                          $select.close(skipFocusser);
+                          $select.close(true);
                           scope.$digest();
                       }
                       $select.clickTriggeredSelect = false;

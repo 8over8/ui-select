@@ -410,7 +410,9 @@ uis.controller('uiSelectCtrl',
                   ctrl.focusser.prop('disabled', false);
                   var element = angular.element('.next-ui-select-element');
                   if (element.length > 0 && !skipNext) {
+                    setTimeout(function () {
                       element.focus();
+                    });
                   } else if (!skipFocusser) {
                       ctrl.focusser[0].focus();
                   }
@@ -514,7 +516,7 @@ uis.controller('uiSelectCtrl',
                   break;
               case KEY.ENTER:
                   if (ctrl.open && (ctrl.tagging.isActivated || ctrl.activeIndex >= 0)) {
-                      ctrl.select(ctrl.items[ctrl.activeIndex]); // Make sure at least one dropdown item is highlighted before adding if not in tagging mode
+                      ctrl.select(ctrl.items[ctrl.activeIndex], true); // Make sure at least one dropdown item is highlighted before adding if not in tagging mode
                   } else {
                       ctrl.activate(false, true); //In case its the search input in 'multiple' mode
                   }
