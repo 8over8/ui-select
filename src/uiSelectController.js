@@ -110,7 +110,9 @@ uis.controller('uiSelectCtrl',
           // briefly when the user searches, then quickly clicks into another select control. The refresh delay is the culprit here,
           // which prevents the list from being cleared immediately. Removing the delay could result in bombardment of the server
           // with requests on every keystroke however, so this is a better solution.
-          ctrl.clearResults();
+		  if (ctrl.clearOnActivate) {
+			ctrl.clearResults();
+		  }
 
           if (!ctrl.disabled && !ctrl.open) {
               if (!avoidReset) _resetSearchInput();

@@ -1,0 +1,23 @@
+<div class="ui-select-container eoe-select eoe-select-container"
+     ng-class="{'eoe-select-container-active eoe-select-dropdown-open open': $select.open,
+                'eoe-select-container-disabled': $select.disabled,
+                'eoe-select-container-active': $select.focus,
+                'eoe-select-allowclear': $select.allowClear && !$select.isEmpty()}">
+  <div class="ui-select-match"></div>
+  <div class="ui-select-dropdown eoe-select-drop eoe-select-with-searchbox eoe-select-drop-active"
+       ng-class="{'eoe-select-display-none': !$select.open}">
+    <div class="eoe-select-search" ng-show="$select.searchEnabled">
+	  <span class="eoe-select-record-count" ng-if="$select.items.length > 0">{{$select.items.length > 50 ? '50+' : $select.items.length}}</span>
+      <input type="text" autocomplete="off" autocorrect="false" autocapitalize="off" spellcheck="false"
+       role="combobox"
+       aria-expanded="true"
+       aria-owns="ui-select-choices-{{ $select.generatedId }}"
+       aria-label="{{ $select.baseTitle }}"
+       aria-activedescendant="ui-select-choices-row-{{ $select.generatedId }}-{{ $select.activeIndex }}"
+             class="ui-select-search eoe-select-input"
+             ng-model="$select.search">
+    </div>
+    <div class="ui-select-choices"></div>
+	<div class="ui-select-no-choice"></div>
+  </div>
+</div>
