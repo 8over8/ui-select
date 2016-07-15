@@ -46,7 +46,7 @@ uis.directive('uiSelectChoices',
 
 				  // Mousedown event required for multi-selects
                   var eventAttr = $select.multiple ? 'ng-mousedown' : 'ng-click';
-				  
+
                   choices.attr('ng-repeat', $select.parserResult.repeatExpression(groupByExp))
                       .attr('ng-if', '$select.open'); //Prevent unnecessary watches when dropdown is closed
                   if ($window.document.addEventListener) {  //crude way to exclude IE8, specifically, which also cannot capture events
@@ -63,27 +63,6 @@ uis.directive('uiSelectChoices',
                   }
 
                   $compile(element, transcludeFn)(scope); //Passing current transcludeFn to be able to append elements correctly from uisTranscludeAppend
-
-                  // TFS 87741 - Ensure dropdown is displayed responsively above/below the input element where possible
-                  scope.$watch(function () {
-                      return element.outerHeight();
-                  }, function (outerHeight) {
-                      if (outerHeight > 0) {
-                          var selectControl = element.closest(".ui-select-container"),
-                              selectControlPosition = selectControl.offset(),
-                              dropdownHeight = element.outerHeight(),
-                              input = selectControl.find(".ui-select-search"),
-                              inputHeight = input.outerHeight(true),
-                              inputPosition = input.offset(),
-                              spaceAboveElement = inputPosition.top - $(window).scrollTop(),
-                              spaceBelowElement = $(window).height() - (spaceAboveElement + inputHeight);
-                          if (spaceBelowElement >= dropdownHeight) {
-                              element.css('top', 'auto');
-                          } else {
-                              element.css('top', (-dropdownHeight) + (inputPosition.top - selectControlPosition.top));
-                          }
-                      }
-                  });
 
                   scope.$watch('$select.search', function (newValue) {
                       if (newValue && !$select.open && $select.multiple) $select.activate(false, true);
